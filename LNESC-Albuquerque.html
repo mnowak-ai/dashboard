@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LNESC Albuquerque · Upward Bound — AI Progress Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <script src="lnesc-data.js"></script>
+  <template id="__bundler_thumbnail" data-bg-color="#eef1fb">
+    <svg viewBox="0 0 1440 900" xmlns="http://www.w3.org/2000/svg">
+      <!-- Sidebar -->
+      <rect x="0" y="0" width="220" height="900" fill="#0d1b3e" rx="0"/>
+      <rect x="20" y="22" width="38" height="38" rx="10" fill="#4f6ef5"/>
+      <rect x="68" y="26" width="80" height="10" rx="4" fill="rgba(255,255,255,0.5)"/>
+      <rect x="68" y="40" width="55" height="8" rx="3" fill="rgba(255,255,255,0.2)"/>
+      <rect x="12" y="90" width="196" height="36" rx="10" fill="rgba(79,110,245,0.22)"/>
+      <rect x="12" y="134" width="196" height="36" rx="10" fill="transparent"/>
+      <rect x="12" y="178" width="196" height="36" rx="10" fill="transparent"/>
+      <rect x="12" y="222" width="196" height="36" rx="10" fill="transparent"/>
+      <!-- Main area -->
+      <rect x="236" y="0" width="1204" height="900" fill="#eef1fb"/>
+      <!-- Top bar -->
+      <rect x="236" y="0" width="1204" height="62" fill="white"/>
+      <rect x="256" y="18" width="200" height="16" rx="6" fill="#0f172a"/>
+      <rect x="256" y="40" width="140" height="10" rx="4" fill="#94a3b8"/>
+      <!-- KPI cards -->
+      <rect x="256" y="82" width="274" height="100" rx="16" fill="white"/>
+      <rect x="548" y="82" width="274" height="100" rx="16" fill="white"/>
+      <rect x="840" y="82" width="274" height="100" rx="16" fill="white"/>
+      <rect x="1132" y="82" width="288" height="100" rx="16" fill="white"/>
+      <!-- KPI accent blobs -->
+      <circle cx="510" cy="82" r="40" fill="#4f6ef5" opacity="0.12"/>
+      <circle cx="802" cy="82" r="40" fill="#10b981" opacity="0.12"/>
+      <circle cx="1094" cy="82" r="40" fill="#f59e0b" opacity="0.12"/>
+      <circle cx="1392" cy="82" r="40" fill="#8b5cf6" opacity="0.12"/>
+      <!-- KPI icons -->
+      <rect x="490" y="90" width="28" height="28" rx="8" fill="#4f6ef5" opacity="0.8"/>
+      <rect x="782" y="90" width="28" height="28" rx="8" fill="#10b981" opacity="0.8"/>
+      <rect x="1074" y="90" width="28" height="28" rx="8" fill="#f59e0b" opacity="0.8"/>
+      <rect x="1376" y="90" width="28" height="28" rx="8" fill="#8b5cf6" opacity="0.8"/>
+      <!-- Row 2: two panels -->
+      <rect x="256" y="202" width="580" height="200" rx="16" fill="white"/>
+      <rect x="856" y="202" width="564" height="200" rx="16" fill="white"/>
+      <!-- Funnel bars -->
+      <rect x="316" y="240" width="460" height="12" rx="6" fill="#818cf8" opacity="0.8"/>
+      <rect x="316" y="264" width="320" height="12" rx="6" fill="#4f6ef5" opacity="0.8"/>
+      <rect x="316" y="288" width="180" height="12" rx="6" fill="#f59e0b" opacity="0.8"/>
+      <rect x="316" y="312" width="80" height="12" rx="6" fill="#10b981" opacity="0.8"/>
+      <!-- Chart bars (right panel) -->
+      <rect x="900" y="240" width="12" height="120" rx="3" fill="#818cf8" opacity="0.7"/>
+      <rect x="920" y="270" width="12" height="90" rx="3" fill="#10b981" opacity="0.7"/>
+      <rect x="940" y="320" width="12" height="40" rx="3" fill="#818cf8" opacity="0.7"/>
+      <rect x="960" y="250" width="12" height="110" rx="3" fill="#10b981" opacity="0.7"/>
+      <rect x="1000" y="280" width="12" height="80" rx="3" fill="#818cf8" opacity="0.7"/>
+      <rect x="1020" y="310" width="12" height="50" rx="3" fill="#10b981" opacity="0.7"/>
+      <rect x="1060" y="240" width="12" height="120" rx="3" fill="#818cf8" opacity="0.7"/>
+      <rect x="1080" y="270" width="12" height="90" rx="3" fill="#10b981" opacity="0.7"/>
+      <!-- Row 3: two panels -->
+      <rect x="256" y="422" width="580" height="220" rx="16" fill="white"/>
+      <rect x="856" y="422" width="564" height="220" rx="16" fill="white"/>
+      <!-- Leaderboard rows -->
+      <rect x="276" y="456" width="540" height="40" rx="10" fill="#fffbeb"/>
+      <rect x="276" y="504" width="540" height="36" rx="10" fill="#fafbff"/>
+      <rect x="276" y="548" width="540" height="36" rx="10" fill="#fafafa"/>
+      <!-- At-risk rows -->
+      <rect x="876" y="456" width="524" height="36" rx="10" fill="#fff8f8"/>
+      <rect x="876" y="500" width="524" height="36" rx="10" fill="#fff8f8"/>
+      <rect x="876" y="544" width="524" height="36" rx="10" fill="#fff8f8"/>
+      <!-- Badge row -->
+      <rect x="256" y="662" width="1164" height="100" rx="16" fill="white"/>
+      <rect x="280" y="682" width="100" height="60" rx="12" fill="white" stroke="#f59e0b" stroke-width="2" opacity="0.5"/>
+      <rect x="392" y="682" width="100" height="60" rx="12" fill="white" stroke="#4f6ef5" stroke-width="2" opacity="0.5"/>
+      <rect x="504" y="682" width="100" height="60" rx="12" fill="white" stroke="#8b5cf6" stroke-width="2" opacity="0.5"/>
+      <rect x="616" y="682" width="100" height="60" rx="12" fill="white" stroke="#10b981" stroke-width="2" opacity="0.5"/>
+    </svg>
+  </template>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; font-family: 'Plus Jakarta Sans', sans-serif; background: #eef1fb; }
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #c8d0e8; border-radius: 4px; }
+    select, input, button { font-family: inherit; }
+    input::placeholder { color: #94a3b8; }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes barIn { from { width: 0 !important; } to {} }
+    .animate-bar { animation: barIn 0.8s cubic-bezier(.4,0,.2,1) forwards; }
+    .card-hover:hover { transform: translateY(-1px); box-shadow: 0 8px 32px rgba(79,110,245,0.10) !important; }
+    .row-hover:hover { background: #f0f4ff !important; cursor: pointer; }
+    .nav-btn:hover { background: rgba(165,180,252,0.12) !important; color: rgba(255,255,255,0.9) !important; }
+  </style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState, useEffect, useMemo, useRef, useCallback, useContext, createContext } = React;
+const D = window.DASHBOARD;
+
+// Active-group context — every data-bound component reads the selected group from here
+const GroupCtx = createContext(D.groups[0]);
+const useG = () => useContext(GroupCtx);
+
+// ── Palette ────────────────────────────────────────────────────────────────
+const C = {
+  primary:      '#4f6ef5',
+  primaryLight: '#eef0fe',
+  success:      '#10b981',
+  successLight: '#d1fae5',
+  warning:      '#f59e0b',
+  warningLight: '#fef3c7',
+  danger:       '#f43f5e',
+  dangerLight:  '#ffe4e6',
+  purple:       '#8b5cf6',
+  purpleLight:  '#ede9fe',
+  text:         '#0f172a',
+  muted:        '#64748b',
+  border:       '#e2e8f0',
+  bg:           '#eef1fb',
+  card:         '#ffffff',
+  sidebar:      '#0d1b3e',
+};
+
+// ── Helpers ─────────────────────────────────────────────────────────────────
+function initials(name) { return name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0,2); }
+function avatarColor(name) {
+  const palette = ['#4f6ef5','#8b5cf6','#06b6d4','#10b981','#f59e0b','#f43f5e','#ec4899','#3b82f6','#0ea5e9','#a855f7'];
+  return palette[name.charCodeAt(0) % palette.length];
+}
+function fmtDate(d) {
+  if (!d) return '—';
+  return new Date(d).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+}
+function pctColor(v) {
+  if (v === 100) return C.success;
+  if (v >= 50)   return C.primary;
+  if (v > 0)     return C.warning;
+  return '#e2e8f0';
+}
+
+// ── Atoms ────────────────────────────────────────────────────────────────────
+function Avatar({ name, size = 36, radius = 10 }) {
+  return (
+    <div style={{
+      width: size, height: size, borderRadius: radius, flexShrink: 0,
+      background: avatarColor(name), display: 'flex', alignItems: 'center',
+      justifyContent: 'center', fontSize: size * 0.36, fontWeight: 700, color: '#fff'
+    }}>{initials(name)}</div>
+  );
+}
+
+function Badge({ status }) {
+  const map = {
+    'completed':   { label: 'Completed',   bg: '#d1fae5', color: '#065f46' },
+    'in-progress': { label: 'In Progress', bg: '#fef3c7', color: '#92400e' },
+    'not-started': { label: 'Not Started', bg: '#f1f5f9', color: '#475569' },
+  };
+  const s = map[status] || map['not-started'];
+  return (
+    <span style={{
+      display: 'inline-flex', alignItems: 'center', gap: 5,
+      padding: '3px 10px', borderRadius: 20, fontSize: 11.5, fontWeight: 700,
+      background: s.bg, color: s.color, whiteSpace: 'nowrap'
+    }}>
+      <span style={{ width: 5, height: 5, borderRadius: '50%', background: s.color, opacity: 0.8 }} />
+      {s.label}
+    </span>
+  );
+}
+
+function ProgressBar({ value, height = 8, showLabel = false }) {
+  const color = pctColor(value);
+  const bg = value === 0 ? '#f1f5f9' : color;
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+      <div style={{ flex: 1, height, background: '#f1f5f9', borderRadius: height, overflow: 'hidden' }}>
+        <div className="animate-bar" style={{
+          height: '100%', width: `${value}%`, background: bg,
+          borderRadius: height, transition: 'width 0.7s cubic-bezier(.4,0,.2,1)'
+        }} />
+      </div>
+      {showLabel && (
+        <span style={{ fontSize: 12, fontWeight: 700, color: value > 0 ? color : C.muted, minWidth: 34, textAlign: 'right' }}>
+          {value}%
+        </span>
+      )}
+    </div>
+  );
+}
+
+function Ring({ value, size = 60, stroke = 6 }) {
+  const r = (size - stroke * 2) / 2;
+  const circ = 2 * Math.PI * r;
+  const dash = circ * value / 100;
+  const color = pctColor(value);
+  return (
+    <svg width={size} height={size} style={{ transform: 'rotate(-90deg)', flexShrink: 0 }}>
+      <circle cx={size/2} cy={size/2} r={r} fill="none" stroke="#f1f5f9" strokeWidth={stroke} />
+      <circle cx={size/2} cy={size/2} r={r} fill="none" stroke={color} strokeWidth={stroke}
+        strokeDasharray={`${dash} ${circ}`} strokeLinecap="round" style={{ transition: 'stroke-dasharray 0.7s ease' }} />
+    </svg>
+  );
+}
+
+// ── Card wrapper ─────────────────────────────────────────────────────────────
+function Card({ title, sub, children, style, noPad }) {
+  return (
+    <div style={{
+      background: C.card, borderRadius: 18,
+      padding: noPad ? 0 : 24,
+      boxShadow: '0 1px 2px rgba(0,0,0,.04), 0 4px 20px rgba(79,110,245,.05)',
+      transition: 'transform 0.15s, box-shadow 0.15s',
+      ...style
+    }}>
+      {(title || sub) && (
+        <div style={{ marginBottom: 18, padding: noPad ? '20px 24px 0' : 0 }}>
+          {title && <div style={{ fontSize: 15, fontWeight: 700, color: C.text }}>{title}</div>}
+          {sub   && <div style={{ fontSize: 12.5, color: C.muted, marginTop: 2 }}>{sub}</div>}
+        </div>
+      )}
+      {children}
+    </div>
+  );
+}
+
+// ── KPI Card ─────────────────────────────────────────────────────────────────
+function KPI({ title, value, sub, icon, grad }) {
+  return (
+    <div className="card-hover" style={{
+      background: C.card, borderRadius: 18, padding: '20px 24px',
+      boxShadow: '0 1px 2px rgba(0,0,0,.04), 0 4px 20px rgba(79,110,245,.05)',
+      display: 'flex', flexDirection: 'column', gap: 14,
+      position: 'relative', overflow: 'hidden', flex: 1,
+      transition: 'transform 0.15s, box-shadow 0.15s'
+    }}>
+      {/* decorative blob */}
+      <div style={{
+        position: 'absolute', top: -20, right: -20, width: 110, height: 110,
+        background: grad, borderRadius: '50%', opacity: 0.12, pointerEvents: 'none'
+      }} />
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+        <span style={{ fontSize: 11.5, fontWeight: 700, color: C.muted, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+          {title}
+        </span>
+        <div style={{
+          width: 38, height: 38, borderRadius: 11, background: grad,
+          display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18
+        }}>{icon}</div>
+      </div>
+      <div>
+        <div style={{ fontSize: 38, fontWeight: 800, color: C.text, lineHeight: 1 }}>{value}</div>
+        {sub && <div style={{ fontSize: 12.5, color: C.muted, marginTop: 4 }}>{sub}</div>}
+      </div>
+    </div>
+  );
+}
+
+// ── Course bar chart ──────────────────────────────────────────────────────────
+function CourseBarChart() {
+  const g = useG();
+  const sorted = [...g.courseStats].sort((a, b) => b.avgCompletion - a.avgCompletion);
+  const max = sorted[0]?.avgCompletion || 1;
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+      {sorted.map((s, i) => {
+        const isTop = i === 0;
+        const isBot = i === sorted.length - 1 && s.avgCompletion < 20;
+        const color = isTop ? C.success : isBot ? C.danger : C.primary;
+        const short = s.name.replace('AI in ', '').replace('Improving ', '');
+        return (
+          <div key={s.name} style={{ display: 'grid', gridTemplateColumns: '168px 1fr 52px', alignItems: 'center', gap: 14 }}>
+            <div style={{ textAlign: 'right', fontSize: 13, fontWeight: 500, color: C.text, lineHeight: 1.2 }}>
+              {short}
+              {isTop && <span style={{ marginLeft: 6, fontSize: 10, color: C.success, fontWeight: 800, background: C.successLight, padding: '1px 6px', borderRadius: 8 }}>TOP</span>}
+              {isBot && <span style={{ marginLeft: 6, fontSize: 10, color: C.danger,  fontWeight: 800, background: C.dangerLight,  padding: '1px 6px', borderRadius: 8 }}>LOW</span>}
+            </div>
+            <div style={{ height: 14, background: '#f1f5f9', borderRadius: 7, overflow: 'hidden' }}>
+              <div className="animate-bar" style={{
+                height: '100%', width: `${max > 0 ? (s.avgCompletion / max) * 100 : 0}%`,
+                background: color, borderRadius: 7, opacity: 0.85
+              }} />
+            </div>
+            <div style={{ fontSize: 14, fontWeight: 800, color: color }}>{s.avgCompletion}%</div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+// ── Course detail mini-cards ──────────────────────────────────────────────────
+function CourseCards() {
+  const g = useG();
+  return (
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 14 }}>
+      {g.courseStats.map(s => (
+        <div key={s.name} style={{
+          background: C.card, borderRadius: 16, padding: '18px 20px',
+          boxShadow: '0 1px 2px rgba(0,0,0,.04)',
+          display: 'flex', alignItems: 'center', gap: 14
+        }}>
+          <Ring value={s.avgCompletion} size={52} stroke={5} />
+          <div>
+            <div style={{ fontSize: 22, fontWeight: 800, color: C.text }}>{s.avgCompletion}%</div>
+            <div style={{ fontSize: 12, color: C.muted, lineHeight: 1.3, marginTop: 2 }}>
+              {s.name.replace('AI in ', '')}<br />
+              <span style={{ color: C.success }}>{s.completedCount}</span> of {s.total} students done
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// ── Activity bar chart (SVG) ──────────────────────────────────────────────────
+function ActivityChart() {
+  const g = useG();
+  const data = g.timeline;
+  const maxVal = Math.max(...data.map(d => Math.max(d.activations, d.signIns)));
+  const W = 560, H = 130, PAD_X = 10, PAD_Y = 10;
+  const cols = data.length;
+  const slotW = (W - PAD_X * 2) / cols;
+  const bw = slotW * 0.32;
+
+  return (
+    <div>
+      <div style={{ display: 'flex', gap: 20, marginBottom: 14 }}>
+        {[['#818cf8','Activations'],[C.success,'Sign-Ins']].map(([col, label]) => (
+          <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 7, fontSize: 12, color: C.muted }}>
+            <div style={{ width: 10, height: 10, borderRadius: 2, background: col }} />
+            {label}
+          </div>
+        ))}
+      </div>
+      <svg width="100%" viewBox={`0 0 ${W} ${H + 24}`} style={{ overflow: 'visible' }}>
+        {/* grid lines */}
+        {[0.25, 0.5, 0.75, 1].map(f => (
+          <line key={f} x1={PAD_X} y1={H - f*(H-PAD_Y)} x2={W-PAD_X} y2={H - f*(H-PAD_Y)}
+            stroke="#f1f5f9" strokeWidth={1} />
+        ))}
+        {data.map((d, i) => {
+          const cx = PAD_X + i * slotW + slotW / 2;
+          const ah = maxVal > 0 ? (d.activations / maxVal) * (H - PAD_Y) : 0;
+          const sh = maxVal > 0 ? (d.signIns    / maxVal) * (H - PAD_Y) : 0;
+          return (
+            <g key={d.label}>
+              {ah > 0 && <rect x={cx - bw - 1} y={H - ah} width={bw} height={ah} fill="#818cf8" rx={3} opacity={0.85} />}
+              {sh > 0 && <rect x={cx + 1}       y={H - sh} width={bw} height={sh} fill={C.success} rx={3} opacity={0.85} />}
+              {/* value labels */}
+              {d.activations > 0 && <text x={cx - bw*0.5 - 1} y={H - ah - 4} textAnchor="middle" fontSize={9} fill="#818cf8" fontWeight="700">{d.activations}</text>}
+              {d.signIns > 0     && <text x={cx + bw*0.5 + 1} y={H - sh - 4} textAnchor="middle" fontSize={9} fill={C.success} fontWeight="700">{d.signIns}</text>}
+              <text x={cx} y={H + 16} textAnchor="middle" fontSize={10} fill={C.muted}>{d.label}</text>
+            </g>
+          );
+        })}
+        <line x1={PAD_X} y1={H} x2={W-PAD_X} y2={H} stroke={C.border} strokeWidth={1.5} />
+      </svg>
+    </div>
+  );
+}
+
+// ── Funnel ────────────────────────────────────────────────────────────────────
+function Funnel() {
+  const g = useG();
+  const { activated, started, completedOne, completedAll } = g.funnel;
+  const steps = [
+    { label: 'Activated',         value: activated,    color: '#818cf8', icon: '✦' },
+    { label: 'Started a Course',  value: started,      color: C.primary, icon: '▶' },
+    { label: 'Completed ≥1',      value: completedOne, color: C.warning, icon: '◑' },
+    { label: 'Completed All 6',   value: completedAll, color: C.success, icon: '✓' },
+  ];
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+      {steps.map((s, i) => {
+        const pct = Math.round(s.value / activated * 100);
+        const next = steps[i + 1];
+        const dropoff = (next && next.value < s.value)
+          ? Math.round((s.value - next.value) / s.value * 100)
+          : null;
+        return (
+          <div key={s.label}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 5 }}>
+              <div style={{ width: 24, height: 24, borderRadius: 8, background: s.color + '22', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, color: s.color, fontWeight: 700 }}>{s.icon}</div>
+              <span style={{ fontSize: 13, fontWeight: 600, color: C.text, flex: 1 }}>{s.label}</span>
+              <span style={{ fontSize: 13, fontWeight: 800, color: s.color }}>{s.value}</span>
+              <span style={{ fontSize: 12, color: C.muted, minWidth: 38, textAlign: 'right' }}>{pct}%</span>
+            </div>
+            <div style={{ height: 10, background: '#f1f5f9', borderRadius: 5, overflow: 'hidden', marginLeft: 34 }}>
+              <div className="animate-bar" style={{ height: '100%', width: `${pct}%`, background: s.color, borderRadius: 5, opacity: 0.8 }} />
+            </div>
+            {dropoff !== null && (
+              <div style={{ fontSize: 11, color: C.muted, marginLeft: 34, marginTop: 3 }}>
+                ↓ {dropoff}% drop-off to next stage
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+// ── Leaderboard ───────────────────────────────────────────────────────────────
+function Leaderboard({ onSelectStudent }) {
+  const g = useG();
+  const top = [...g.students]
+    .filter(s => s.avgCompletion > 0)
+    .sort((a, b) => b.avgCompletion !== a.avgCompletion ? b.avgCompletion - a.avgCompletion : b.completedCount - a.completedCount)
+    .slice(0, 5);
+
+  const medals = ['🥇', '🥈', '🥉'];
+
+  if (!top.length) return <div style={{ padding: '24px 0', textAlign: 'center', color: C.muted, fontSize: 14 }}>No progress recorded yet.</div>;
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+      {top.map((s, i) => (
+        <div key={s.email} onClick={() => onSelectStudent(s)} style={{
+          display: 'flex', alignItems: 'center', gap: 12, padding: '12px 16px',
+          borderRadius: 14, cursor: 'pointer', transition: 'all 0.15s',
+          background: i === 0 ? 'linear-gradient(120deg,#fffbeb,#fff)' : i === 1 ? '#fafbff' : '#fafafa',
+          border: `1.5px solid ${i === 0 ? '#fcd34d40' : '#f1f5f9'}`,
+        }}
+          onMouseEnter={e => e.currentTarget.style.background = '#f0f4ff'}
+          onMouseLeave={e => e.currentTarget.style.background = i === 0 ? 'linear-gradient(120deg,#fffbeb,#fff)' : i === 1 ? '#fafbff' : '#fafafa'}
+        >
+          <div style={{ width: 32, textAlign: 'center', fontSize: i < 3 ? 22 : 14, fontWeight: 700, color: C.muted }}>
+            {i < 3 ? medals[i] : `#${i + 1}`}
+          </div>
+          <Avatar name={s.name} size={36} radius={10} />
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div style={{ fontSize: 14, fontWeight: 600, color: C.text }}>{s.name}</div>
+            <div style={{ fontSize: 11.5, color: C.muted }}>{s.completedCount}/{s.courses.length} courses complete</div>
+          </div>
+          <Ring value={s.avgCompletion} size={44} stroke={5} />
+          <div style={{ fontSize: 18, fontWeight: 800, color: pctColor(s.avgCompletion), minWidth: 46, textAlign: 'right' }}>
+            {s.avgCompletion}%
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// ── At-Risk ───────────────────────────────────────────────────────────────────
+function AtRisk({ onSelectStudent }) {
+  const g = useG();
+  const risky = g.students.filter(s => s.avgCompletion < 10 && !s.isActive);
+
+  if (!risky.length) return (
+    <div style={{ padding: '24px 0', textAlign: 'center', color: C.success, fontSize: 14, fontWeight: 600 }}>
+      🎉 No at-risk students right now
+    </div>
+  );
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+      {risky.slice(0, 7).map(s => (
+        <div key={s.email} onClick={() => onSelectStudent(s)} style={{
+          display: 'grid', gridTemplateColumns: '1fr auto auto auto',
+          alignItems: 'center', gap: 12, padding: '11px 16px',
+          borderRadius: 14, background: '#fff8f8',
+          border: '1.5px solid #ffe4e6', cursor: 'pointer', transition: 'all 0.12s'
+        }}
+          onMouseEnter={e => e.currentTarget.style.background = '#fff0f0'}
+          onMouseLeave={e => e.currentTarget.style.background = '#fff8f8'}
+        >
+          <div>
+            <div style={{ fontSize: 13.5, fontWeight: 600, color: C.text }}>{s.name}</div>
+            <div style={{ fontSize: 11.5, color: C.muted }}>
+              {s.lastSignIn ? `Last seen ${s.daysSinceSignIn}d ago` : 'Never signed in'}
+            </div>
+          </div>
+          <div style={{ fontSize: 11.5, color: '#94a3b8', maxWidth: 120, textAlign: 'center' }}>
+            {s.courses.find(c => c.started)?.name?.replace('AI in ', '') || '—'}
+          </div>
+          <div style={{ fontSize: 15, fontWeight: 800, color: C.danger }}>{s.avgCompletion}%</div>
+          <span style={{
+            padding: '3px 10px', borderRadius: 20, fontSize: 11, fontWeight: 700,
+            background: '#fee2e2', color: '#b91c1c', whiteSpace: 'nowrap'
+          }}>⚠ Needs Attention</span>
+        </div>
+      ))}
+      {risky.length > 7 && (
+        <div style={{ textAlign: 'center', fontSize: 12, color: C.muted, paddingTop: 4 }}>
+          +{risky.length - 7} more students
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── Gamification Badges ───────────────────────────────────────────────────────
+function Badges() {
+  const g = useG();
+  const earned = [];
+  g.students.forEach(s => {
+    if (s.avgCompletion === 100)        earned.push({ name: s.name, label: 'Course Champion',   icon: '🏆', color: C.warning  });
+    else if (s.completedCount >= 2)     earned.push({ name: s.name, label: 'Multi-Course Pro',  icon: '⚡', color: C.primary  });
+    else if (s.avgCompletion >= 40)     earned.push({ name: s.name, label: 'Halfway Hero',       icon: '🎯', color: C.purple   });
+    else if (s.avgCompletion > 0)       earned.push({ name: s.name, label: 'First Steps',        icon: '🌱', color: C.success  });
+  });
+
+  if (!earned.length) return <div style={{ color: C.muted, fontSize: 14, padding: '16px 0' }}>No badges yet — keep going!</div>;
+
+  return (
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
+      {earned.map((b, i) => (
+        <div key={i} style={{
+          display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6,
+          padding: '16px 18px', borderRadius: 16, minWidth: 110,
+          background: 'white', border: `2px solid ${b.color}28`,
+          boxShadow: `0 2px 12px ${b.color}18`
+        }}>
+          <div style={{ fontSize: 28, lineHeight: 1 }}>{b.icon}</div>
+          <div style={{ fontSize: 11.5, fontWeight: 700, color: b.color, textAlign: 'center', lineHeight: 1.2 }}>{b.label}</div>
+          <div style={{ fontSize: 11, color: C.muted, textAlign: 'center' }}>{b.name.split(' ')[0]}</div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// ── Student Progress Table ────────────────────────────────────────────────────
+function StudentTable({ onSelectStudent }) {
+  const g = useG();
+  const [search,         setSearch]         = useState('');
+  const [filterCourse,   setFilterCourse]   = useState('');
+  const [filterStatus,   setFilterStatus]   = useState('');
+  const [filterActivity, setFilterActivity] = useState('');
+  const [sortBy,         setSortBy]         = useState('name');
+  const [sortDir,        setSortDir]        = useState('asc');
+
+  function toggleSort(col) {
+    if (sortBy === col) setSortDir(d => d === 'asc' ? 'desc' : 'asc');
+    else { setSortBy(col); setSortDir('asc'); }
+  }
+
+  const filtered = useMemo(() => {
+    let list = g.students;
+    if (search)         list = list.filter(s => s.name.toLowerCase().includes(search.toLowerCase()) || s.email.toLowerCase().includes(search.toLowerCase()));
+    if (filterStatus)   list = list.filter(s => s.status === filterStatus);
+    if (filterActivity === 'active')   list = list.filter(s => s.isActive);
+    if (filterActivity === 'inactive') list = list.filter(s => !s.isActive);
+    if (filterCourse)   list = list.filter(s => s.courses.some(c => c.name === filterCourse && (c.pct > 0 || c.started)));
+    return [...list].sort((a, b) => {
+      let cmp = 0;
+      if (sortBy === 'name')       cmp = a.name.localeCompare(b.name);
+      if (sortBy === 'completion') cmp = a.avgCompletion - b.avgCompletion;
+      if (sortBy === 'status')     cmp = a.status.localeCompare(b.status);
+      if (sortBy === 'lastSignIn') cmp = (a.lastSignIn || '').localeCompare(b.lastSignIn || '');
+      return sortDir === 'asc' ? cmp : -cmp;
+    });
+  }, [search, filterStatus, filterActivity, filterCourse, sortBy, sortDir, g]);
+
+  const SortArrow = ({ col }) => {
+    if (sortBy !== col) return <span style={{ color: '#d1d5db', marginLeft: 3 }}>↕</span>;
+    return <span style={{ color: C.primary, marginLeft: 3 }}>{sortDir === 'asc' ? '↑' : '↓'}</span>;
+  };
+
+  const inputStyle = {
+    padding: '8px 14px', borderRadius: 10, border: `1.5px solid ${C.border}`,
+    fontSize: 13, outline: 'none', background: 'white', color: C.text,
+    transition: 'border-color 0.15s'
+  };
+  const TH = ({ col, children }) => (
+    <th onClick={() => toggleSort(col)} style={{
+      padding: '11px 16px', fontSize: 11, fontWeight: 700, color: C.muted,
+      textTransform: 'uppercase', letterSpacing: '0.05em', textAlign: 'left',
+      cursor: 'pointer', userSelect: 'none', background: '#f8fafc',
+      borderBottom: `1.5px solid ${C.border}`, whiteSpace: 'nowrap'
+    }}>
+      {children}<SortArrow col={col} />
+    </th>
+  );
+
+  return (
+    <div style={{ animation: 'fadeUp 0.3s ease' }}>
+      {/* Filter bar */}
+      <div style={{ display: 'flex', gap: 10, marginBottom: 16, flexWrap: 'wrap' }}>
+        <input style={{ ...inputStyle, flex: 2, minWidth: 180 }}
+          placeholder="🔍  Search students or email…"
+          value={search} onChange={e => setSearch(e.target.value)} />
+        <select style={{ ...inputStyle, flex: 1, minWidth: 150 }}
+          value={filterCourse} onChange={e => setFilterCourse(e.target.value)}>
+          <option value="">All Courses</option>
+          {D.courseNames.map(c => <option key={c} value={c}>{c.replace('AI in ', '')}</option>)}
+        </select>
+        <select style={{ ...inputStyle, flex: 1, minWidth: 140 }}
+          value={filterStatus} onChange={e => setFilterStatus(e.target.value)}>
+          <option value="">All Status</option>
+          <option value="completed">Completed</option>
+          <option value="in-progress">In Progress</option>
+          <option value="not-started">Not Started</option>
+        </select>
+        <select style={{ ...inputStyle, flex: 1, minWidth: 140 }}
+          value={filterActivity} onChange={e => setFilterActivity(e.target.value)}>
+          <option value="">All Activity</option>
+          <option value="active">Active</option>
+          <option value="inactive">Inactive</option>
+        </select>
+      </div>
+
+      <div style={{ fontSize: 12.5, color: C.muted, marginBottom: 10 }}>
+        Showing <strong style={{ color: C.text }}>{filtered.length}</strong> of {g.students.length} students
+        {filtered.length < g.students.length && (
+          <button onClick={() => { setSearch(''); setFilterCourse(''); setFilterStatus(''); setFilterActivity(''); }}
+            style={{ marginLeft: 10, fontSize: 12, color: C.primary, background: 'none', border: 'none', cursor: 'pointer', textDecoration: 'underline' }}>
+            Clear filters
+          </button>
+        )}
+      </div>
+
+      {/* Table */}
+      <div style={{ borderRadius: 14, overflow: 'hidden', border: `1px solid ${C.border}` }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+          <thead>
+            <tr>
+              <TH col="name">Student</TH>
+              <th style={{ padding: '11px 16px', fontSize: 11, fontWeight: 700, color: C.muted, textTransform: 'uppercase', letterSpacing: '0.05em', background: '#f8fafc', borderBottom: `1.5px solid ${C.border}` }}>Courses</th>
+              <TH col="completion">Progress</TH>
+              <TH col="status">Status</TH>
+              <TH col="lastSignIn">Last Active</TH>
+            </tr>
+          </thead>
+          <tbody>
+            {filtered.map((s, i) => (
+              <tr key={s.email} className="row-hover"
+                onClick={() => onSelectStudent(s)}
+                style={{ background: i % 2 === 0 ? 'white' : '#fafbfc', borderBottom: `1px solid #f1f5f9` }}>
+                <td style={{ padding: '12px 16px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                    <Avatar name={s.name} size={34} radius={9} />
+                    <div>
+                      <div style={{ fontSize: 13.5, fontWeight: 600, color: C.text }}>{s.name}</div>
+                      <div style={{ fontSize: 11, color: C.muted }}>{s.email}</div>
+                    </div>
+                  </div>
+                </td>
+                <td style={{ padding: '12px 16px', fontSize: 13, color: C.muted, whiteSpace: 'nowrap' }}>
+                  <span style={{ fontWeight: 700, color: s.completedCount > 0 ? C.success : C.muted }}>{s.completedCount}</span>
+                  <span> / {s.courses.length} done</span>
+                </td>
+                <td style={{ padding: '12px 16px', minWidth: 150 }}>
+                  <ProgressBar value={s.avgCompletion} height={8} showLabel />
+                </td>
+                <td style={{ padding: '12px 16px' }}>
+                  <Badge status={s.status} />
+                </td>
+                <td style={{ padding: '12px 16px', fontSize: 13, whiteSpace: 'nowrap' }}>
+                  {s.lastSignIn
+                    ? <span style={{ color: s.isActive ? C.success : C.muted }}>
+                        <span style={{ marginRight: 5 }}>{s.isActive ? '●' : '○'}</span>
+                        {fmtDate(s.lastSignIn)}
+                      </span>
+                    : <span style={{ color: C.danger, fontWeight: 600 }}>Never</span>}
+                </td>
+              </tr>
+            ))}
+            {filtered.length === 0 && (
+              <tr>
+                <td colSpan={5} style={{ padding: '48px', textAlign: 'center', color: C.muted, fontSize: 14 }}>
+                  No students match your filters
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
+// ── Student Modal ─────────────────────────────────────────────────────────────
+function StudentModal({ student: s, onClose }) {
+  useEffect(() => {
+    const handleKey = e => { if (e.key === 'Escape') onClose(); };
+    document.addEventListener('keydown', handleKey);
+    return () => document.removeEventListener('keydown', handleKey);
+  }, []);
+
+  if (!s) return null;
+
+  const timeline = [
+    { label: 'Activated', date: s.activatedAt, color: '#818cf8' },
+    { label: 'First Started', date: s.courses.find(c => c.started)?.started, color: C.primary },
+    { label: 'Last Sign-In', date: s.lastSignIn, color: C.warning },
+    { label: 'First Complete', date: s.courses.find(c => c.completedAt)?.completedAt, color: C.success },
+  ].filter(t => t.date);
+
+  const statBox = (label, value, color) => (
+    <div style={{ background: '#f8fafc', borderRadius: 12, padding: '14px 16px', textAlign: 'center', flex: 1 }}>
+      <div style={{ fontSize: 22, fontWeight: 800, color }}>{value}</div>
+      <div style={{ fontSize: 11.5, color: C.muted, marginTop: 2 }}>{label}</div>
+    </div>
+  );
+
+  return (
+    <div style={{
+      position: 'fixed', inset: 0, background: 'rgba(13,27,62,0.45)', zIndex: 1000,
+      display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24,
+      backdropFilter: 'blur(4px)'
+    }} onClick={onClose}>
+      <div style={{
+        background: 'white', borderRadius: 24, padding: '28px 32px',
+        width: '100%', maxWidth: 580, maxHeight: '88vh', overflowY: 'auto',
+        boxShadow: '0 32px 80px rgba(0,0,0,0.22)', animation: 'fadeUp 0.2s ease'
+      }} onClick={e => e.stopPropagation()}>
+
+        {/* Header */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 22 }}>
+          <Avatar name={s.name} size={56} radius={16} />
+          <div style={{ flex: 1 }}>
+            <div style={{ fontSize: 20, fontWeight: 800, color: C.text }}>{s.name}</div>
+            <div style={{ fontSize: 13, color: C.muted }}>{s.email}</div>
+          </div>
+          <Badge status={s.status} />
+          <button onClick={onClose} style={{
+            width: 32, height: 32, borderRadius: 9, border: 'none',
+            background: '#f1f5f9', cursor: 'pointer', fontSize: 18, color: C.muted,
+            display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0
+          }}>×</button>
+        </div>
+
+        {/* Stats */}
+        <div style={{ display: 'flex', gap: 10, marginBottom: 24 }}>
+          {statBox('Avg Completion', `${s.avgCompletion}%`, pctColor(s.avgCompletion))}
+          {statBox('Courses Done',   `${s.completedCount}/${s.courses.length}`, C.success)}
+          {statBox('Last Sign-In',   fmtDate(s.lastSignIn), s.isActive ? C.success : C.muted)}
+          {statBox('Activated', fmtDate(s.activatedAt), C.muted)}
+        </div>
+
+        {/* Course Progress */}
+        <div style={{ marginBottom: 24 }}>
+          <div style={{ fontSize: 11.5, fontWeight: 700, color: C.muted, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 14 }}>
+            Course Progress
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+            {s.courses.map(c => (
+              <div key={c.name}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 5 }}>
+                  <span style={{ fontSize: 13, fontWeight: 500, color: C.text }}>{c.name}</span>
+                  <span style={{ fontSize: 13, fontWeight: 800, color: pctColor(c.pct) }}>{c.pct}%</span>
+                </div>
+                <ProgressBar value={c.pct} height={10} />
+                {c.completedAt && (
+                  <div style={{ fontSize: 11, color: C.success, marginTop: 3 }}>
+                    ✓ Completed {fmtDate(c.completedAt)}
+                  </div>
+                )}
+                {c.started && !c.completedAt && (
+                  <div style={{ fontSize: 11, color: C.muted, marginTop: 3 }}>
+                    Started {fmtDate(c.started)}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Timeline */}
+        {timeline.length > 1 && (
+          <div>
+            <div style={{ fontSize: 11.5, fontWeight: 700, color: C.muted, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 16 }}>
+              Activity Timeline
+            </div>
+            <div style={{ position: 'relative', display: 'flex', justifyContent: 'space-between' }}>
+              <div style={{ position: 'absolute', top: 11, left: 12, right: 12, height: 2, background: '#f1f5f9' }} />
+              {timeline.map(t => (
+                <div key={t.label} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8, position: 'relative', flex: 1 }}>
+                  <div style={{ width: 24, height: 24, borderRadius: '50%', background: t.color, border: '3px solid white', boxShadow: `0 0 0 2px ${t.color}40`, zIndex: 1 }} />
+                  <div style={{ fontSize: 11, fontWeight: 700, color: C.text, textAlign: 'center' }}>{t.label}</div>
+                  <div style={{ fontSize: 10.5, color: C.muted, textAlign: 'center' }}>{fmtDate(t.date)}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ── Sidebar ───────────────────────────────────────────────────────────────────
+function Sidebar({ active, setActive }) {
+  const nav = [
+    { id: 'overview',    icon: '▣', label: 'Overview'    },
+    { id: 'students',    icon: '◉', label: 'Students'    },
+    { id: 'courses',     icon: '◧', label: 'Courses'     },
+    { id: 'engagement',  icon: '◎', label: 'Engagement'  },
+  ];
+
+  return (
+    <div style={{
+      width: 220, flexShrink: 0, background: C.sidebar,
+      display: 'flex', flexDirection: 'column', minHeight: '100vh', position: 'sticky', top: 0
+    }}>
+      {/* Branding */}
+      <div style={{ padding: '22px 20px 20px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <div style={{ width: 38, height: 38, borderRadius: 12, background: C.primary, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20 }}>✦</div>
+          <div>
+            <div style={{ fontSize: 13, fontWeight: 800, color: 'white', lineHeight: 1.15 }}>LNESC Albuquerque</div>
+            <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.35)', marginTop: 2 }}>Upward Bound · AI Program</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Nav */}
+      <nav style={{ flex: 1, padding: '16px 10px' }}>
+        <div style={{ fontSize: 9.5, fontWeight: 700, color: 'rgba(255,255,255,0.22)', letterSpacing: '0.1em', padding: '0 10px', marginBottom: 10 }}>
+          NAVIGATION
+        </div>
+        {nav.map(item => {
+          const isActive = active === item.id;
+          return (
+            <button key={item.id} className={isActive ? '' : 'nav-btn'} onClick={() => setActive(item.id)} style={{
+              width: '100%', display: 'flex', alignItems: 'center', gap: 10,
+              padding: '10px 12px', borderRadius: 10, border: 'none', cursor: 'pointer',
+              background: isActive ? 'rgba(79,110,245,0.22)' : 'transparent',
+              color: isActive ? '#a5b4fc' : 'rgba(255,255,255,0.5)',
+              fontSize: 13.5, fontWeight: isActive ? 700 : 400,
+              marginBottom: 2, textAlign: 'left', transition: 'all 0.15s', fontFamily: 'inherit'
+            }}>
+              <span style={{ fontSize: 15, width: 18, textAlign: 'center' }}>{item.icon}</span>
+              {item.label}
+              {isActive && <div style={{ width: 5, height: 5, borderRadius: '50%', background: '#a5b4fc', marginLeft: 'auto' }} />}
+            </button>
+          );
+        })}
+      </nav>
+
+      {/* Footer */}
+      <div style={{ padding: '16px 20px', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+        <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.22)', lineHeight: 1.6 }}>
+          Upward Bound Program<br />
+          <span style={{ color: 'rgba(255,255,255,0.4)', fontWeight: 600 }}>Summer 2026 · as of Jun 9</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Group switcher (segmented control) ────────────────────────────────────────
+function GroupSwitcher({ groupId, setGroupId }) {
+  return (
+    <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-end', background: '#eef1f8', padding: 4, borderRadius: 13, gap: 2 }}>
+      {D.groups.map(grp => {
+        const on = grp.id === groupId;
+        return (
+          <button key={grp.id} onClick={() => setGroupId(grp.id)} style={{
+            display: 'flex', alignItems: 'center', gap: 7, padding: '8px 14px', borderRadius: 10,
+            border: 'none', cursor: 'pointer', fontFamily: 'inherit', fontSize: 13,
+            background: on ? 'white' : 'transparent',
+            color: on ? C.text : C.muted, fontWeight: on ? 700 : 600,
+            boxShadow: on ? '0 1px 4px rgba(13,27,62,.14)' : 'none', transition: 'all .15s', whiteSpace: 'nowrap'
+          }}>
+            {grp.id === 'all' && <span style={{ fontSize: 13 }}>◍</span>}
+            {grp.shortName}
+            <span style={{ fontSize: 11, fontWeight: 800, padding: '1px 7px', borderRadius: 10,
+              background: on ? C.primaryLight : '#dde3ee', color: on ? C.primary : C.muted }}>{grp.count}</span>
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+// ── Page header ───────────────────────────────────────────────────────────────
+function PageHeader({ active, groupId, setGroupId }) {
+  const g = useG();
+  const titles = {
+    overview:   { h: 'Dashboard Overview',    sub: "Bird's-eye view of cohort progress and engagement" },
+    students:   { h: 'Student Progress',      sub: 'Detailed per-student view — click any row to drill down' },
+    courses:    { h: 'Course Analytics',      sub: 'Completion rates and performance by course' },
+    engagement: { h: 'Engagement Insights',   sub: 'Activity timeline, badges, and motivation layer' },
+  };
+  const t = titles[active];
+  return (
+    <div style={{
+      padding: '16px 32px', background: 'white', borderBottom: `1px solid ${C.border}`,
+      display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 20,
+      boxShadow: '0 1px 3px rgba(0,0,0,.03)', position: 'sticky', top: 0, zIndex: 10, flexWrap: 'wrap'
+    }}>
+      <div>
+        <h1 style={{ fontSize: 21, fontWeight: 800, color: C.text }}>{t.h}</h1>
+        <p style={{ fontSize: 12.5, color: C.muted, marginTop: 2 }}>
+          {t.sub} · <span style={{ fontWeight: 700, color: C.primary }}>{g.name}</span>
+        </p>
+      </div>
+      <GroupSwitcher groupId={groupId} setGroupId={setGroupId} />
+    </div>
+  );
+}
+
+// ── App ───────────────────────────────────────────────────────────────────────
+function App() {
+  const [active,  setActive]  = useState('overview');
+  const [groupId, setGroupId] = useState('all');
+  const [student, setStudent] = useState(null);
+  const g = D.groups.find(x => x.id === groupId) || D.groups[0];
+  const { kpi } = g;
+
+  const kpis = [
+    { title: 'Total Students',      value: kpi.total,           sub: 'Enrolled in this group',    icon: '👥', grad: 'linear-gradient(135deg,#4f6ef5,#818cf8)' },
+    { title: 'Active Students',     value: kpi.active,          sub: 'Signed in last 30 days',    icon: '⚡', grad: 'linear-gradient(135deg,#10b981,#34d399)' },
+    { title: 'Avg Completion',      value: `${kpi.avgCompletion}%`, sub: 'Across all courses',    icon: '📊', grad: 'linear-gradient(135deg,#f59e0b,#fbbf24)' },
+    { title: 'In Progress',         value: kpi.inProgress,      sub: 'Actively working',          icon: '🎯', grad: 'linear-gradient(135deg,#8b5cf6,#a78bfa)' },
+  ];
+
+  return (
+   <GroupCtx.Provider value={g}>
+    <div style={{ display: 'flex', minHeight: '100vh', background: C.bg }}>
+      <Sidebar active={active} setActive={setActive} />
+
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', minWidth: 0 }}>
+        <PageHeader active={active} groupId={groupId} setGroupId={setGroupId} />
+
+        <div style={{ flex: 1, overflowY: 'auto', padding: '28px 32px', display: 'flex', flexDirection: 'column', gap: 20 }}>
+
+          {/* ─ OVERVIEW ─────────────────────────────────────────────────────── */}
+          {active === 'overview' && (
+            <>
+              {/* KPI row */}
+              <div style={{ display: 'flex', gap: 14 }}>
+                {kpis.map(k => <KPI key={k.title} {...k} />)}
+              </div>
+
+              {/* Funnel + Activity */}
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+                <Card title="Completion Funnel" sub="Student journey across all stages">
+                  <Funnel />
+                </Card>
+                <Card title="Activity Timeline" sub="Activations and sign-ins by date">
+                  <ActivityChart />
+                </Card>
+              </div>
+
+              {/* Top performers + At-risk */}
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+                <Card title="🏆 Top Performers" sub="Ranked by completion — click to drill down">
+                  <Leaderboard onSelectStudent={setStudent} />
+                </Card>
+                <Card title="⚠️ At-Risk Students" sub="Low progress + no recent sign-in">
+                  <AtRisk onSelectStudent={setStudent} />
+                </Card>
+              </div>
+
+              {/* Gamification */}
+              <Card title="Achievement Badges" sub="Earned milestones across the cohort">
+                <Badges />
+              </Card>
+            </>
+          )}
+
+          {/* ─ STUDENTS ─────────────────────────────────────────────────────── */}
+          {active === 'students' && (
+            <Card>
+              <StudentTable onSelectStudent={setStudent} />
+            </Card>
+          )}
+
+          {/* ─ COURSES ──────────────────────────────────────────────────────── */}
+          {active === 'courses' && (
+            <>
+              <Card title="Average Completion by Course" sub={`Across all ${kpi.total} students in ${g.shortName}`}>
+                <CourseBarChart />
+              </Card>
+              <CourseCards />
+            </>
+          )}
+
+          {/* ─ ENGAGEMENT ───────────────────────────────────────────────────── */}
+          {active === 'engagement' && (
+            <>
+              <Card title="Activity Timeline" sub="Daily activations and sign-in events">
+                <ActivityChart />
+              </Card>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+                <Card title="Active vs Inactive" sub="Based on sign-in in last 30 days">
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+                    {[
+                      { label: 'Active', value: kpi.active,               color: C.success },
+                      { label: 'Inactive', value: kpi.total - kpi.active, color: C.danger  },
+                    ].map(row => (
+                      <div key={row.label}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
+                          <span style={{ fontSize: 13.5, fontWeight: 600, color: C.text }}>{row.label}</span>
+                          <span style={{ fontSize: 15, fontWeight: 800, color: row.color }}>{row.value} <span style={{ fontSize: 12, fontWeight: 400, color: C.muted }}>students</span></span>
+                        </div>
+                        <ProgressBar value={Math.round(row.value / kpi.total * 100)} height={12} showLabel />
+                      </div>
+                    ))}
+                    <div style={{ marginTop: 8, padding: '12px 16px', background: '#f8fafc', borderRadius: 12, fontSize: 13, color: C.muted, lineHeight: 1.6 }}>
+                      <strong style={{ color: C.text }}>{Math.round(kpi.active / kpi.total * 100)}%</strong> of students signed in within the last 30 days. Progress is concentrated in “Improving Academics with AI,” the entry course nearly every student started — a targeted nudge toward the other five courses is recommended.
+                    </div>
+                  </div>
+                </Card>
+                <Card title="Achievement Badges" sub="Earned milestones">
+                  <Badges />
+                </Card>
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+                <Card title="🏆 Top Performers" sub="Ranked by completion">
+                  <Leaderboard onSelectStudent={setStudent} />
+                </Card>
+                <Card title="⚠️ Needs Attention" sub="Low engagement, at risk of falling behind">
+                  <AtRisk onSelectStudent={setStudent} />
+                </Card>
+              </div>
+            </>
+          )}
+
+        </div>
+      </div>
+
+      {student && <StudentModal student={student} onClose={() => setStudent(null)} />}
+    </div>
+   </GroupCtx.Provider>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>
