@@ -61,7 +61,7 @@
       },
       {
         firstName: "Aiziyah", lastName: "Arrington", email: "aiziyah.arrington@cathedralprep.com",
-        activatedAt: "2026-06-22", lastSignIn: "2026-07-01",
+        activatedAt: "2026-06-22", lastSignIn: "2026-07-06",
         courses: courses({
           "AI in Technology": { started: "2026-06-23", pct: 90, viewed: 93 }
         })
@@ -79,7 +79,7 @@
         activatedAt: "2026-06-22", lastSignIn: "2026-07-06",
         courses: courses({
           "AI in Technology":            { started: "2026-06-22", completedAt: "2026-06-25", pct: 100, viewed: 100 },
-          "AI in Business":              { started: "2026-07-06", pct: 12, viewed: 16 },
+          "AI in Business":              { started: "2026-07-06", pct: 53, viewed: 56 },
           "Improving Academics with AI": { started: "2026-06-25", completedAt: "2026-07-02", pct: 100, viewed: 100 }
         })
       },
@@ -90,8 +90,9 @@
       },
       {
         firstName: "Mauriona", lastName: "Butts", email: "maurionab2024@gmail.com",
-        activatedAt: "2026-06-22", lastSignIn: "2026-06-30",
+        activatedAt: "2026-06-22", lastSignIn: "2026-07-06",
         courses: courses({
+          "AI in Technology":            { started: "2026-07-06", completedAt: "2026-07-06", pct: 100, viewed: 100 },
           "AI in Law":                   { started: "2026-06-30", completedAt: "2026-06-30", pct: 100, viewed: 100 },
           "AI in Healthcare":            { started: "2026-06-30", completedAt: "2026-06-30", pct: 100, viewed: 100 },
           "AI in Business":              { started: "2026-06-30", completedAt: "2026-06-30", pct: 100, viewed: 100 },
@@ -101,17 +102,17 @@
       },
       {
         firstName: "Lailah", lastName: "Ellis", email: "shevintagestyling@gmail.com",
-        activatedAt: "2026-06-22", lastSignIn: "2026-06-30",
+        activatedAt: "2026-06-22", lastSignIn: "2026-07-06",
         courses: courses({
-          "AI in Technology": { started: "2026-06-23", pct: 19, viewed: 19 }
+          "AI in Technology": { started: "2026-06-23", pct: 23, viewed: 26 }
         })
       },
       {
         firstName: "Owen", lastName: "Hartleb", email: "108182@phcse.net",
-        activatedAt: "2026-06-22", lastSignIn: "2026-07-02",
+        activatedAt: "2026-06-22", lastSignIn: "2026-07-06",
         courses: courses({
           "AI in Technology":            { started: "2026-06-22", completedAt: "2026-06-25", pct: 100, viewed: 100 },
-          "AI in Healthcare":            { started: "2026-07-02", pct: 3, viewed: 6 },
+          "AI in Healthcare":            { started: "2026-07-02", pct: 96, viewed: 100 },
           "Improving Academics with AI": { started: "2026-06-24", completedAt: "2026-07-02", pct: 100, viewed: 100 }
         })
       },
@@ -120,7 +121,7 @@
         activatedAt: "2026-06-22", lastSignIn: "2026-07-06",
         courses: courses({
           "AI in Technology":            { started: "2026-06-22", completedAt: "2026-06-25", pct: 100, viewed: 100 },
-          "Improving Academics with AI": { started: "2026-06-25", pct: 75, viewed: 77 }
+          "Improving Academics with AI": { started: "2026-06-25", pct: 85, viewed: 87 }
         })
       },
       {
@@ -141,7 +142,7 @@
         firstName: "Jocelyn", lastName: "Mitchell", email: "108020@phcse.net",
         activatedAt: "2026-06-22", lastSignIn: "2026-07-06",
         courses: courses({
-          "AI in Technology": { started: "2026-06-22", pct: 52, viewed: 55 }
+          "AI in Technology": { started: "2026-06-22", pct: 73, viewed: 76 }
         })
       },
       {
@@ -159,7 +160,7 @@
         activatedAt: "2026-06-22", lastSignIn: "2026-07-06",
         courses: courses({
           "AI in Technology":            { started: "2026-06-22", completedAt: "2026-06-25", pct: 100, viewed: 100 },
-          "Improving Academics with AI": { started: "2026-06-25", pct: 42, viewed: 43 }
+          "Improving Academics with AI": { started: "2026-06-25", pct: 48, viewed: 50 }
         })
       },
       {
@@ -177,10 +178,10 @@
       },
       {
         firstName: "Nikkilus", lastName: "Barnes", email: "nikkitbarnes51@gmail.com",
-        activatedAt: "2026-06-22", lastSignIn: "2026-07-02",
+        activatedAt: "2026-06-22", lastSignIn: "2026-07-06",
         courses: courses({
           "AI in Technology":            { started: "2026-06-22", pct: 66, viewed: 69 },
-          "Improving Academics with AI": { started: "2026-06-24", pct: 53, viewed: 54 }
+          "Improving Academics with AI": { started: "2026-06-24", pct: 71, viewed: 72 }
         })
       },
       {
@@ -216,7 +217,7 @@
         activatedAt: "2026-06-22", lastSignIn: "2026-07-06",
         courses: courses({
           "AI in Technology":            { started: "2026-06-22", completedAt: "2026-06-25", pct: 100, viewed: 100 },
-          "Improving Academics with AI": { started: "2026-06-30", pct: 43, viewed: 44 }
+          "Improving Academics with AI": { started: "2026-06-30", pct: 62, viewed: 63 }
         })
       }
     ];
@@ -1125,7 +1126,7 @@ function App() {
                       </div>
                     ))}
                     <div style={{ marginTop: 8, padding: '12px 16px', background: '#f8fafc', borderRadius: 12, fontSize: 13, color: C.muted, lineHeight: 1.6 }}>
-                      <strong style={{ color: C.text }}>{Math.round(kpi.active / kpi.total * 100)}%</strong> of enrolled students are active (signed in within the last 14 days). Jul 6 was the biggest sign-in day since launch, with 9 students returning. <strong style={{ color: C.warning }}>Mauriona Butts</strong> remains the top performer with 5 of 6 courses done. New completions this period: <strong style={{ color: C.success }}>Owen Hartleb</strong> and <strong style={{ color: C.success }}>Naomi Augustin</strong> both finished "Improving Academics with AI"; <strong style={{ color: C.success }}>Zakhi Lowery</strong> completed it and jumped to 83% in Finance/Investing; <strong style={{ color: C.success }}>Junia Rollie</strong> finished AI in Technology. Notable progress: Kaliyah Marshall surged 15%→71% in AI in Law; Kadiat Muzeza hit 94% in her 3rd course. New student <strong style={{ color: C.primary }}>Minha Lal</strong> joined with AI in Technology already complete and is 43% through Improving Academics. <strong style={{ color: C.danger }}>3 students</strong> (Shaziyah Barnes, Junia Rollie @ tiagrayson525, Abraya Jenks @ abrj2011) have still never signed in and need outreach.
+                      <strong style={{ color: C.text }}>{Math.round(kpi.active / kpi.total * 100)}%</strong> of enrolled students are active (signed in within the last 14 days). <strong style={{ color: C.warning }}>Mauriona Butts</strong> became the first student to complete all 6 courses — a major milestone. <strong style={{ color: C.success }}>Owen Hartleb</strong> is at 96% in AI in Healthcare, one step from a second completion. Big gains this update: Nikkilus Barnes jumped to 71% in Improving Academics (+18 pts); Minha Lal reached 62% (+19 pts); Karlee Hendricks hit 85% (+10 pts); Jocelyn Mitchell surged to 73% in AI in Technology (+21 pts). Naomi Augustin is now 53% through AI in Business. <strong style={{ color: C.danger }}>3 students</strong> (Shaziyah Barnes, Junia Rollie @ tiagrayson525, Abraya Jenks @ abrj2011) have still never signed in and need outreach.
                     </div>
                   </div>
                 </Card>
