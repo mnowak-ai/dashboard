@@ -12,8 +12,9 @@
   <script>
 /* ─────────────────────────────────────────────────────────────────────────────
    UL Lafayette · Upward Bound & UBMS — AI Certificate Dashboard Data
-   Source: 4 Thinkific CSV exports ("UL Lafayette" series), updated July 21 2026
-   Groups: UBMS (11), UB1 (28), UB2 (13), UB3 (14) — 66 total
+   Source: 4 Thinkific CSV exports ("University of Louisiana Lafayette" series),
+   refreshed Jul 26 2026
+   Groups: UBMS (16), UB1 (30), UB2 (18), UB3 (15) — 79 enrollments
 ───────────────────────────────────────────────────────────────────────────── */
 window.DASHBOARD = (function () {
   'use strict';
@@ -27,12 +28,8 @@ window.DASHBOARD = (function () {
     'Improving Academics with AI'
   ];
 
-  const TODAY = '2026-07-21';
+  const TODAY = '2026-07-26';
   const D0 = '2026-06-25'; // orientation / activation day
-  const D1 = '2026-06-26';
-  const D2 = '2026-06-27';
-  const D3 = '2026-06-28';
-  const D4 = '2026-06-29';
   const n  = null;
 
   function daysSince(dateStr) {
@@ -40,9 +37,7 @@ window.DASHBOARD = (function () {
     return Math.max(0, Math.floor((new Date(TODAY) - new Date(dateStr.slice(0, 10))) / 86400000));
   }
 
-  // pcts         : [tech, law, health, biz, fin, improving] — % Completed integers
-  // starts       : same order — start date string or null
-  // completedAts : same order — completion date string or null (for 100% courses only)
+  // pcts / starts / completedAts follow COURSES order
   function mkStudent(name, email, activated, lastSignIn, pcts, starts, completedAts) {
     const courses = COURSES.map((cname, i) => ({
       name: cname,
@@ -78,21 +73,24 @@ window.DASHBOARD = (function () {
       completedAll: students.filter(s => s.completedCount === 6).length
     };
 
-    const DATES = [
-      { label: 'Jun 25', date: D0 },
-      { label: 'Jun 26', date: D1 },
-      { label: 'Jun 27', date: D2 },
-      { label: 'Jun 28', date: D3 },
-      { label: 'Jun 29', date: D4 },
-      { label: 'Jun 30', date: '2026-06-30' },
-      { label: 'Jul 7',  date: '2026-07-07' },
-      { label: 'Jul 14', date: '2026-07-14' },
-      { label: 'Jul 21', date: '2026-07-21' },
+    // buckets: [label, startDate, endDate] — inclusive
+    const BUCKETS = [
+      ['Jun 25', '2026-06-25', '2026-06-25'],
+      ['Jun 26', '2026-06-26', '2026-06-26'],
+      ['Jun 27', '2026-06-27', '2026-06-27'],
+      ['Jun 28', '2026-06-28', '2026-06-29'],
+      ['Jun 30', '2026-06-30', '2026-07-02'],
+      ['Jul 3',  '2026-07-03', '2026-07-06'],
+      ['Jul 7',  '2026-07-07', '2026-07-10'],
+      ['Jul 11', '2026-07-11', '2026-07-13'],
+      ['Jul 14', '2026-07-14', '2026-07-17'],
+      ['Jul 21', '2026-07-18', '2026-07-26'],
     ];
-    const timeline = DATES.map(d => ({
-      label: d.label,
-      activations: students.filter(s => s.activatedAt  && s.activatedAt.startsWith(d.date)).length,
-      signIns:     students.filter(s => s.lastSignIn   && s.lastSignIn.startsWith(d.date)).length
+    const inB = (d, a, b) => !!d && d.slice(0, 10) >= a && d.slice(0, 10) <= b;
+    const timeline = BUCKETS.map(([label, a, b]) => ({
+      label,
+      activations: students.filter(s => inB(s.activatedAt, a, b)).length,
+      signIns:     students.filter(s => inB(s.lastSignIn,  a, b)).length
     }));
 
     const courseStats = COURSES.map(cname => {
@@ -112,93 +110,109 @@ window.DASHBOARD = (function () {
     return { id, name, shortName, count: total, kpi, funnel, timeline, courseStats, students };
   }
 
-  // ── UB Math & Science — UBMS (11 students) ─────────────────────────────────
-  // Source: UL Lafayette UBMS.csv
+  // ── UB Math & Science — UBMS (16) ──────────────────────────
   const ubms = [
-    mkStudent('Apple User',        'boogydownrashaad@gmail.com',    D0, D0, [0,0,0,0,0, 0], [],             []),
-    mkStudent('Tyler P',           'tylerphanofficial@gmail.com',   D0, D1, [0,0,0,0,0,100],[n,n,n,n,n,D0], [n,n,n,n,n,D1]),
-    mkStudent('Danairien Thomas',  'dmlthomas17@gmail.com',         D0, D4, [0,0,0,0,0, 7], [n,n,n,n,n,D2], []),
-    mkStudent('Triston Lewis',     'lewistriston21@gmail.com',      D0, D0, [0,0,0,0,0, 0], [],             []),
-    mkStudent('Dmyrea Mcneely',    'dmyreamcneely13@gmail.com',     D0, D0, [0,0,0,0,0, 0], [],             []),
-    mkStudent('Samaria James',     'jamessamaria8@gmail.com',       D0, D0, [0,0,0,0,0, 0], [],             []),
-    mkStudent('Braelon Williams',  'braelon.williams1@icloud.com',  D0, D0, [0,0,0,0,0, 0], [n,n,n,n,n,D0], []),
-    mkStudent('Kiraly T',          'kthongdy09@gmail.com',          D0, D0, [0,0,0,0,0, 0], [n,n,n,n,n,D0], []),
-    mkStudent('Devin Migues',      'devinmigues15@gmail.com',       D0, D1, [0,0,0,0,0,44], [n,n,n,n,n,D0], []),
-    mkStudent('Bradley Pierce',    'bradleypierce121@gmail.com',    D0, D0, [0,0,0,0,0, 0], [n,n,n,n,n,D0], []),
-    mkStudent('Antonio Robertson', 'robertsonantonio127@gmail.com', D0, D0, [0,0,0,0,0,13], [n,n,n,n,n,D0], []),
+    mkStudent('Apple User',          'boogydownrashaad@gmail.com',      '2026-06-25', '2026-06-25', [  0,  0,  0,  0,  0,  0], [], []),
+    mkStudent('Tyler P',             'tylerphanofficial@gmail.com',     '2026-06-25', '2026-06-26', [  0,  0,  0,  0,  0,100], [n,n,n,n,n,'2026-06-25'], [n,n,n,n,n,'2026-06-26']),
+    mkStudent('Danairien Thomas',    'dmlthomas17@gmail.com',           '2026-06-25', '2026-07-13', [  0,  0,  0,  0,  0, 33], [n,n,n,n,n,'2026-06-27'], []),
+    mkStudent('Triston Lewis',       'lewistriston21@gmail.com',        '2026-06-25', '2026-06-25', [  0,  0,  0,  0,  0,  0], [], []),
+    mkStudent('Dmyrea Mcneely',      'dmyreamcneely13@gmail.com',       '2026-06-25', '2026-06-25', [  0,  0,  0,  0,  0,  0], [], []),
+    mkStudent('Samaria James',       'jamessamaria8@gmail.com',         '2026-06-25', '2026-06-25', [  0,  0,  0,  0,  0,  0], [], []),
+    mkStudent('Braelon Williams',    'braelon.williams1@icloud.com',    '2026-06-25', '2026-07-14', [100,100,100,100,100,100], ['2026-07-14','2026-07-14','2026-07-14','2026-07-14','2026-07-14','2026-06-25'], ['2026-07-14','2026-07-14','2026-07-14','2026-07-14','2026-07-14','2026-07-14']),
+    mkStudent('Kiraly T',            'kthongdy09@gmail.com',            '2026-06-25', '2026-07-08', [  0,  0,  0,  0,  0,  0], [n,n,n,n,n,'2026-06-25'], []),
+    mkStudent('Devin Migues',        'devinmigues15@gmail.com',         '2026-06-25', '2026-06-26', [  0,  0,  0,  0,  0, 44], [n,n,n,n,n,'2026-06-25'], []),
+    mkStudent('Bradley Pierce',      'bradleypierce121@gmail.com',      '2026-06-25', '2026-06-25', [  0,  0,  0,  0,  0,  0], [n,n,n,n,n,'2026-06-25'], []),
+    mkStudent('Antonio Robertson',   'robertsonantonio127@gmail.com',   '2026-06-25', '2026-07-16', [100,100,100,100,100,100], ['2026-07-08','2026-07-08','2026-07-08','2026-07-08','2026-07-08','2026-06-25'], ['2026-07-16','2026-07-16','2026-07-16','2026-07-16','2026-07-16','2026-07-16']),
+    mkStudent('Christy Son',         'goustrider89@outlook.com',        '2026-06-25', '2026-06-25', [  0,  0,  0,  0,  0,  0], [], []),
+    mkStudent('Christy Son',         'christy28son@gmail.com',          '2026-06-30', '2026-07-14', [100,100,100,100,100,100], ['2026-07-14','2026-07-14','2026-07-14','2026-07-14','2026-07-14','2026-07-07'], ['2026-07-14','2026-07-14','2026-07-14','2026-07-14','2026-07-14','2026-07-13']),
+    mkStudent('Jayden Perez',        'jaypeeperez2010@gmail.com',       '2026-07-02', '2026-07-02', [100,100,100,100,100,100], ['2026-07-02','2026-07-02','2026-07-02','2026-07-02','2026-07-02','2026-07-02'], ['2026-07-02','2026-07-02','2026-07-02','2026-07-02','2026-07-02','2026-07-02']),
+    mkStudent('Isabella Derouen',    'isabelladerouen165@gmail.com',    '2026-07-03', '2026-07-03', [  0,  0,  0,  0,  0,  0], [], []),
+    mkStudent('Marc Floyd',          'marcfloyd2@gmail.com',            '2026-07-08', '2026-07-08', [  0,  0,  0,  0,  0,  0], [], []),
   ];
 
-  // ── Upward Bound 1 — UB1 (28 students) ────────────────────────────────────
-  // Source: UL Lafayette Upward Bound 1.csv
+  // ── Upward Bound 1 — UB1 (30) ──────────────────────────────
   const ub1 = [
-    mkStudent('Myion Bush',        'bushmyion373@gmail.com',        D0, D0, [0,0,0,0,0, 0], [],               []),
-    mkStudent('Annie Jacobo',      'jacoboannie9@gmail.com',        D0, D0, [0,0,0,0,0, 1], [n,n,n,n,n,D0],   []),
-    mkStudent('Google User',       'prettytinae09@gmail.com',       D0, D0, [0,0,0,0,0, 0], [],               []),
-    mkStudent('Kaylee Borel',      'borelkaylee08@gmail.com',       D0, D3, [0,0,0,0,0,15], [n,n,n,n,n,D0],   []),
-    mkStudent('Mariah Davenport',  'davenportmariah5@gmail.com',    D0, D0, [0,0,0,0,0, 0], [],               []),
-    mkStudent('Victoria Gallien',  'gallienvictoria7@gmail.com',    D0, D0, [0,0,0,0,0,33], [n,n,n,n,n,D0],   []),
-    mkStudent('Peyton Douget',     'pvd6754@gmail.com',             D0, D0, [0,0,0,0,0, 1], [n,n,n,n,n,D0],   []),
-    mkStudent('Sadie Pourcio',     'sadiepourcio2@gmail.com',       D0, D2, [0,0,0,0,0, 0], [],               []),
-    mkStudent('Julien Deocos',     'deocosjulien1016@gmail.com',    D0, D0, [0,0,0,0,0, 0], [n,n,n,n,D0,D0],  []),
-    mkStudent('Sean Richard',      'richardsean449@gmail.com',      D0, D4, [0,0,0,0,0, 8], [n,n,n,n,n,D0],   []),
-    mkStudent('Kennadi C',         'kennadic1209@gmail.com',        D0, D1, [0,0,0,0,0,12], [n,n,n,n,n,D1],   []),
-    mkStudent('LaQuosha Weston',   'laquoshaweston339@gmail.com',   D0, D0, [0,0,0,0,0, 0], [],               []),
-    mkStudent('Dekora Wheeler',    'dekoranicole@gmail.com',        D0, D0, [0,0,0,0,0, 0], [],               []),
-    mkStudent('Yasmine Alexander', 'yasminealexander256@gmail.com', D0, D0, [0,0,0,0,0, 0], [],               []),
-    mkStudent('Halie Guzman',      'halieguz05@gmail.com',          D0, D0, [0,0,0,0,0, 0], [],               []),
-    mkStudent('Damanii Daigre',    'damaniileg@gmail.com',          D0, D0, [0,0,0,0,0, 0], [],               []),
-    mkStudent('Madison Todd',      'madisontodd785@gmail.com',      D0, D3, [0,0,0,0,0, 0], [n,n,n,n,n,D3],   []),
-    mkStudent('Regan Handy',       'reganhandy24@gmail.com',        D0, D0, [0,0,0,0,0, 0], [],               []),
-    mkStudent('Cailey Savoy',      'caileys071410@gmail.com',       D0, D0, [0,0,0,0,0, 0], [],               []),
-    mkStudent('Hannah Willar',     'hannahwillar6@gmail.com',       D0, D0, [0,0,0,0,0, 0], [],               []),
-    mkStudent('Sbrylee Brown',     'sbryleebrown5@gmail.com',       D0, D1, [0,0,0,0,0,36], [n,n,n,n,n,D0],   []),
-    mkStudent("Sy'nae Howard",     'synaehoward7@gmail.com',        D0, D0, [0,0,0,0,0,24], [n,n,n,n,n,D0],   []),
-    mkStudent("Ri'kijah Lamb",     'chloexrikijahforeva@gmail.com', D0, D0, [0,0,0,0,0, 0], [],               []),
-    mkStudent('Aiden Scott',       'aidenscott92os@gmail.com',      D0, D0, [0,0,0,0,0, 0], [],               []),
-    mkStudent('Michael Darjean',   'michaeldarjean97@gmail.com',    D0, D2, [0,0,0,0,0,44], [n,n,n,n,n,D2],   []),
-    mkStudent('Lucky Gonzalez',    'gonzalezlucky470@gmail.com',    D0, D0, [0,0,0,0,0, 0], [],               []),
-    mkStudent('Christian Teller',  'ctteller10@gmail.com',          D0, D0, [0,0,0,0,0, 0], [],               []),
-    mkStudent('Angelle Jackson',   'jacksonangelle15@gmail.com',    D0, D0, [0,71,0,0,0, 0], [n,D0,n,n,n,n],  []),
+    mkStudent('Myion Bush',          'bushmyion373@gmail.com',          '2026-06-25', '2026-06-25', [  0,  0,  0,  0,  0,  0], [], []),
+    mkStudent('Annie Jacobo',        'jacoboannie9@gmail.com',          '2026-06-25', '2026-07-26', [  0,  0,  0,  0,  0,100], [n,n,n,n,n,'2026-06-25'], [n,n,n,n,n,'2026-07-09']),
+    mkStudent('Google User',         'prettytinae09@gmail.com',         '2026-06-25', '2026-06-25', [  0,  0,  0,  0,  0,  0], [], []),
+    mkStudent('Kaylee Borel',        'borelkaylee08@gmail.com',         '2026-06-25', '2026-07-08', [  0,  0,  0,  0,  0, 15], [n,n,n,n,n,'2026-06-25'], []),
+    mkStudent('Mariah Davenport',    'davenportmariah5@gmail.com',      '2026-06-25', '2026-07-15', [  0,  0,  0,  0,  3,100], [n,n,n,n,'2026-07-15','2026-07-05'], [n,n,n,n,n,'2026-07-15']),
+    mkStudent('Victoria Gallien',    'gallienvictoria7@gmail.com',      '2026-06-25', '2026-06-25', [  0,  0,  0,  0,  0, 33], [n,n,n,n,n,'2026-06-25'], []),
+    mkStudent('Peyton Douget',       'pvd6754@gmail.com',               '2026-06-25', '2026-06-25', [  0,  0,  0,  0,  0,  1], [n,n,n,n,n,'2026-06-25'], []),
+    mkStudent('Sadie Pourcio',       'sadiepourcio2@gmail.com',         '2026-06-25', '2026-07-17', [  0,  0,  0,  0,  0, 50], [n,n,n,n,n,'2026-07-12'], []),
+    mkStudent('Julien Deocos',       'deocosjulien1016@gmail.com',      '2026-06-25', '2026-06-25', [  0,  0,  0,  0,  0,  0], [n,n,n,n,'2026-06-25','2026-06-25'], []),
+    mkStudent('Sean Richard',        'richardsean449@gmail.com',        '2026-06-25', '2026-07-21', [100,100,100,100,100,100], ['2026-07-02','2026-07-12','2026-06-29','2026-07-16','2026-07-16','2026-06-25'], ['2026-07-12','2026-07-12','2026-06-29','2026-07-16','2026-07-16','2026-06-29']),
+    mkStudent('Kennadi C',           'kennadic1209@gmail.com',          '2026-06-25', '2026-07-12', [  0,  0,  0,  0,  0, 50], [n,n,n,n,n,'2026-06-26'], []),
+    mkStudent('LaQuosha Weston',     'laquoshaweston339@gmail.com',     '2026-06-25', '2026-07-07', [  0,  0,  0,  0,  0, 34], [n,n,n,n,n,'2026-07-02'], []),
+    mkStudent('Dekora Wheeler',      'dekoranicole@gmail.com',          '2026-06-25', '2026-07-09', [  0,  0,100,  0,  0,100], [n,n,'2026-07-08',n,'2026-07-09','2026-07-09'], [n,n,'2026-07-09',n,n,'2026-07-09']),
+    mkStudent('Yasmine Alexander',   'yasminealexander256@gmail.com',   '2026-06-25', '2026-06-25', [  0,  0,  0,  0,  0,  0], [], []),
+    mkStudent('Halie Guzman',        'halieguz05@gmail.com',            '2026-06-25', '2026-07-06', [  0,  0,  0,  0,  0,  5], [n,n,n,n,n,'2026-07-02'], []),
+    mkStudent('Damanii Daigre',      'damaniileg@gmail.com',            '2026-06-25', '2026-06-25', [  0,  0,  0,  0,  0,  0], [], []),
+    mkStudent('Madison Todd',        'madisontodd785@gmail.com',        '2026-06-25', '2026-07-11', [  0,  0,  0,  0,  0, 15], [n,n,n,n,n,'2026-06-28'], []),
+    mkStudent('Regan Handy',         'reganhandy24@gmail.com',          '2026-06-25', '2026-06-25', [  0,  0,  0,  0,  0,  0], [], []),
+    mkStudent('Cailey Savoy',        'caileys071410@gmail.com',         '2026-06-25', '2026-06-25', [  0,  0,  0,  0,  0,  0], [], []),
+    mkStudent('Hannah Willar',       'hannahwillar6@gmail.com',         '2026-06-25', '2026-07-02', [  0,  0,  0,  0,  0, 47], [n,n,n,n,n,'2026-07-02'], []),
+    mkStudent('Sbrylee Brown',       'sbryleebrown5@gmail.com',         '2026-06-25', '2026-06-26', [  0,  0,  0,  0,  0, 36], [n,n,n,n,n,'2026-06-25'], []),
+    mkStudent('Synae Howard',        'synaehoward7@gmail.com',          '2026-06-25', '2026-06-25', [  0,  0,  0,  0,  0, 24], [n,n,n,n,n,'2026-06-25'], []),
+    mkStudent('Rikijah Lamb',        'chloexrikijahforeva@gmail.com',   '2026-06-25', '2026-06-25', [  0,  0,  0,  0,  0,  0], [], []),
+    mkStudent('Aiden Scott',         'aidenscott92os@gmail.com',        '2026-06-25', '2026-06-25', [  0,  0,  0,  0,  0,  0], [], []),
+    mkStudent('Michael Darjean',     'michaeldarjean97@gmail.com',      '2026-06-25', '2026-06-27', [  0,  0,  0,  0,  0, 44], [n,n,n,n,n,'2026-06-27'], []),
+    mkStudent('Lucky Gonzalez',      'gonzalezlucky470@gmail.com',      '2026-06-25', '2026-06-25', [  0,  0,  0,  0,  0,  0], [], []),
+    mkStudent('Christian Teller',    'ctteller10@gmail.com',            '2026-06-25', '2026-06-25', [  0,  0,  0,  0,  0,  0], [], []),
+    mkStudent('Angelle Jackson',     'jacksonangelle15@gmail.com',      '2026-06-25', '2026-06-25', [  0, 71,  0,  0,  0,  0], [n,'2026-06-25',n,n,n,n], []),
+    mkStudent('serenity green',      'serenitycharmed551@gmail.com',    '2026-07-08', '2026-07-09', [  0,100,  0,  0,  0,  0], [n,'2026-07-08',n,n,n,n], [n,'2026-07-09',n,n,n,n]),
+    mkStudent('Markayla Lewis',      'markaylalewis822@gmail.com',      '2026-07-08', '2026-07-08', [  0,  0,  0,  0,  0,  0], [], []),
   ];
 
-  // ── Upward Bound 2 — UB2 (13 students) ────────────────────────────────────
-  // Source: UL Lafayette Upward Bound 2.csv
+  // ── Upward Bound 2 — UB2 (18) ──────────────────────────────
   const ub2 = [
-    mkStudent('Kaia Ledet',        'kledet5359981@gmail.com',       D0, D0, [0,0,0,0,0, 0], [D0,n,n,n,n,n],   []),
-    mkStudent('Keegan Johnson',    'keeganjohnson1107@gmail.com',   D0, D0, [0,0,0,0,0, 0], [],               []),
-    mkStudent('Amani Linton',      'maniandbubba123@gmail.com',     D0, D0, [0,0,0,0,0, 0], [],               []),
-    mkStudent('Chloe Kelly',       'chloekellyyy24@gmail.com',      D0, D0, [0,0,0,0,0, 0], [n,n,n,D0,n,n],   []),
-    mkStudent('Jakayla Viltz',     'jayviltz14@yahoo.com',          D0, D0, [0,0,0,0,0, 0], [],               []),
-    mkStudent('Kimberly Vo',       'kimberlyvo0910@gmail.com',      D0, D2, [0,0,0,0,0,100],[n,n,n,n,n,D2],   [n,n,n,n,n,D2]),
-    mkStudent('Ilen Declouet',     'ilendeclouet@gmail.com',        D0, D0, [0,0,0,0,0,24], [n,n,n,n,n,D0],   []),
-    mkStudent('Motiana Milton',    'miltomotiana6@gmail.com',       D0, D0, [0,0,0,0,0, 0], [],               []),
-    mkStudent('Jakavon Fontenot',  'jakavonf14@yahoo.com',          D0, D0, [0,0,0,0,0,30], [n,n,n,n,n,D0],   []),
-    mkStudent('Apple User',        'boogydownrashaad@gmail.com',    D0, D0, [0,0,0,0,0, 0], [],               []),
-    mkStudent('Olivia Toutcheque', 'oliviatoutcheque@gmail.com',    D0, D0, [0,0,0,0,0, 0], [],               []),
-    mkStudent('Aaliyah Pillette',  'aaliyahpillette88@gmail.com',   D0, D0, [0,0,0,0,0, 0], [],               []),
-    mkStudent('Oceanne Romero',    'oceanne.romero141@gmail.com',   D0, D0, [0,0,0,0,0, 0], [],               []),
+    mkStudent('Kaia Ledet',          'kledet5359981@gmail.com',        '2026-06-25', '2026-06-25', [  0,  0,  0,  0,  0,  0], ['2026-06-25',n,n,n,n,n], []),
+    mkStudent('Keegan Johnson',      'keeganjohnson1107@gmail.com',    '2026-06-25', '2026-06-25', [  0,  0,  0,  0,  0,  0], [], []),
+    mkStudent('Amani Linton',        'maniandbubba123@gmail.com',      '2026-06-25', '2026-06-25', [  0,  0,  0,  0,  0,  0], [], []),
+    mkStudent('Chloe Kelly',         'chloekellyyy24@gmail.com',       '2026-06-25', '2026-07-01', [  0,  0,  0,  0,  0,  0], [n,n,n,'2026-06-25',n,n], []),
+    mkStudent('Jakayla Viltz',       'jayviltz14@yahoo.com',           '2026-06-25', '2026-07-08', [  0,  0,  0,  0,  0,  0], [], []),
+    mkStudent('Kimberly Vo',         'kimberlyvo0910@gmail.com',       '2026-06-25', '2026-07-02', [  0,  0,  0,  0,  0,100], [n,n,n,n,n,'2026-06-27'], [n,n,n,n,n,'2026-06-27']),
+    mkStudent('Ilen Declouet',       'ilendeclouet@gmail.com',         '2026-06-25', '2026-06-25', [  0,  0,  0,  0,  0, 24], [n,n,n,n,n,'2026-06-25'], []),
+    mkStudent('motiana milton',      'miltomotiana6@gmail.com',        '2026-06-25', '2026-07-08', [  0,  0,  0,  0,  0,  0], [], []),
+    mkStudent('Jakavon Fontenot',    'jakavonf14@yahoo.com',           '2026-06-25', '2026-06-25', [  0,  0,  0,  0,  0, 30], [n,n,n,n,n,'2026-06-25'], []),
+    mkStudent('Apple User',          'boogydownrashaad@gmail.com',     '2026-06-25', '2026-06-25', [  0,  0,  0,  0,  0,  0], [], []),
+    mkStudent('Olivia Toutcheque',   'oliviatoutcheque@gmail.com',     '2026-06-25', '2026-06-25', [  0,  0,  0,  0,  0,  0], [], []),
+    mkStudent('Aaliyah Pillette',    'aaliyahpillette88@gmail.com',    '2026-06-25', '2026-06-25', [  0,  0,  0,  0,  0,  0], [], []),
+    mkStudent('Oceanne Romero',      'oceanne.romero141@gmail.com',    '2026-06-25', '2026-06-25', [  0,  0,  0,  0,  0,  0], [], []),
+    mkStudent('Daylon King',         'daylonking2008@icloud.com',      '2026-06-29', '2026-07-08', [  0,  0,  0,  0,  0,  0], [], []),
+    mkStudent('Shyasjah Polidore',   'queenslayshyasjah@gmail.com',    '2026-07-08', '2026-07-08', [  0,  0,  0,  0,  0,  0], [], []),
+    mkStudent('aaliyah pillette',    'aaliyahpillette889@gmail.com',   '2026-07-08', '2026-07-08', [  0,  0,  0,  0,  0,  0], [], []),
+    mkStudent('alyse nicole',        'alysearchon09@gmail.com',        '2026-07-08', '2026-07-08', [  0,  0,  0,  0,  0,  0], [], []),
+    mkStudent('ava tran',            'akt4339963@gmail.com',           '2026-07-08', '2026-07-08', [  0,  0,  0,  0,  0,  0], [], []),
   ];
 
-  // ── Upward Bound 3 — UB3 (14 students) ────────────────────────────────────
-  // Source: UL Lafayette Upward Bound 3.csv
+  // ── Upward Bound 3 — UB3 (15) ──────────────────────────────
   const ub3 = [
-    mkStudent('Conner Crosby',     'connercrosby43@gmail.com',      D0, D0, [0,0,0,0,0, 0], [],               []),
-    mkStudent('Rilei Lockett',     'gibsonrilei@gmail.com',         D0, D0, [0,0,0,0,0, 0], [],               []),
-    mkStudent('Apple User',        'brendenmicah09@gmail.com',      D0, D0, [0,0,0,0,0, 0], [],               []),
-    mkStudent('Kade Boatmon',      'boatmonkade050@gmail.com',      D0, D0, [0,0,0,0,0, 0], [],               []),
-    mkStudent('Dakaria Gray',      'dakariagray@hotmail.com',       D0, D0, [0,0,0,0,0, 0], [],               []),
-    mkStudent('Jayden Garrick',    'jaydengarrick67@gmail.com',     D0, D0, [0,0,0,0,0, 0], [],               []),
-    mkStudent('Annalise Vanicor',  'a.vanicor@yahoo.com',           D0, D0, [0,0,0,0,0, 0], [],               []),
-    mkStudent('Zinn Stevenson',    'stevensonzinn0@gmail.com',      D0, D0, [0,0,0,0,0, 0], [],               []),
-    mkStudent('Brenden Hilts',     '57.bake.greaves@icloud.com',    D0, D0, [0,0,0,0,0, 0], [n,n,n,n,n,D0],   []),
-    mkStudent('Arianna Levy',      'alevy14102@gmail.com',          D0, D0, [0,0,0,0,0, 0], [],               []),
-    mkStudent('Kason Johnson',     'kasonjohnson.05@gmail.com',     D0, D0, [0,0,0,0,0, 0], [],               []),
-    mkStudent('Apple User',        'kadeboatmon13@icloud.com',      D0, D0, [0,0,0,0,0, 3], [n,n,n,n,n,D0],   []),
-    mkStudent('Brylon Bernard',    'brylonbernard14@gmail.com',     D0, D0, [0,0,0,0,0, 1], [n,n,n,n,n,D0],   []),
-    mkStudent('Kourtney Williams', 'kourtneywilliams12@icloud.com', D0, D3, [0,0,100,0,0,23],[n,n,D0,n,n,D3],  [n,n,D3,n,n,n]),
+    mkStudent('Conner Crosby',       'connercrosby43@gmail.com',        '2026-06-25', '2026-06-25', [  0,  0,  0,  0,  0,  0], [], []),
+    mkStudent('Rilei Lockett',       'gibsonrilei@gmail.com',           '2026-06-25', '2026-06-25', [  0,  0,  0,  0,  0,  0], [], []),
+    mkStudent('Apple User',          'brendenmicah09@gmail.com',        '2026-06-25', '2026-06-25', [  0,  0,  0,  0,  0,  0], [], []),
+    mkStudent('Kade Boatmon',        'boatmonkade050@gmail.com',        '2026-06-25', '2026-06-25', [  0,  0,  0,  0,  0,  0], [], []),
+    mkStudent('Dakaria Gray',        'dakariagray@hotmail.com',         '2026-06-25', '2026-06-25', [  0,  0,  0,  0,  0,  0], [], []),
+    mkStudent('Jayden Garrick',      'jaydengarrick67@gmail.com',       '2026-06-25', '2026-06-25', [  0,  0,  0,  0,  0,  0], [], []),
+    mkStudent('Annalise Vanicor',    'a.vanicor@yahoo.com',             '2026-06-25', '2026-06-25', [  0,  0,  0,  0,  0,  0], [], []),
+    mkStudent('Zinn Stevenson',      'stevensonzinn0@gmail.com',        '2026-06-25', '2026-06-25', [  0,  0,  0,  0,  0,  0], [], []),
+    mkStudent('Brenden Hilts',       '57.bake.greaves@icloud.com',      '2026-06-25', '2026-06-25', [  0,  0,  0,  0,  0,  0], [n,n,n,n,n,'2026-06-25'], []),
+    mkStudent('Arianna Levy',        'alevy14102@gmail.com',            '2026-06-25', '2026-06-25', [  0,  0,  0,  0,  0,  0], [], []),
+    mkStudent('Kason Johnson',       'kasonjohnson.05@gmail.com',       '2026-06-25', '2026-06-25', [  0,  0,  0,  0,  0,  0], [], []),
+    mkStudent('Apple User',          'kadeboatmon13@icloud.com',        '2026-06-25', '2026-06-25', [  0,  0,  0,  0,  0,  3], [n,n,n,n,n,'2026-06-25'], []),
+    mkStudent('Brylon Bernard',      'brylonbernard14@gmail.com',       '2026-06-25', '2026-06-25', [  0,  0,  0,  0,  0,  1], [n,n,n,n,n,'2026-06-25'], []),
+    mkStudent('Kourtney Williams',   'kourtneywilliams12@icloud.com',   '2026-06-25', '2026-07-10', [  0,  0,100,  0,  0, 23], [n,n,'2026-06-25',n,n,'2026-06-28'], [n,n,'2026-06-28',n,n,n]),
+    mkStudent('Javon Landry',        'javonlandry768@gmail.com',        '2026-07-08', '2026-07-08', [  0,  0,  0,  0,  0,  1], [n,n,n,n,n,'2026-07-08'], []),
   ];
 
-  const all = [...ub1, ...ub2, ...ub3, ...ubms];
+  // "All Programs" — de-duplicated by email across groups
+  const all = [];
+  const seen = new Set();
+  [...ub1, ...ub2, ...ub3, ...ubms].forEach(s => {
+    if (seen.has(s.email)) return;
+    seen.add(s.email);
+    all.push(s);
+  });
 
   return {
     courseNames: COURSES,
@@ -211,7 +225,6 @@ window.DASHBOARD = (function () {
     ]
   };
 })();
-
 </script>
   <template id="__bundler_thumbnail" data-bg-color="#eef1fb">
     <svg viewBox="0 0 1440 900" xmlns="http://www.w3.org/2000/svg">
@@ -1041,7 +1054,7 @@ function Sidebar({ active, setActive }) {
       <div style={{ padding: '16px 20px', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
         <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.22)', lineHeight: 1.6 }}>
           Upward Bound Program<br />
-          <span style={{ color: 'rgba(255,255,255,0.4)', fontWeight: 600 }}>Summer 2026 · as of Jul 21</span>
+          <span style={{ color: 'rgba(255,255,255,0.4)', fontWeight: 600 }}>Summer 2026 · as of Jul 26</span>
         </div>
       </div>
     </div>
