@@ -13,7 +13,7 @@
 /* ─────────────────────────────────────────────────────────────────────────────
    UL Lafayette · Upward Bound & UBMS — AI Certificate Dashboard Data
    Source: 4 Thinkific CSV exports ("University of Louisiana Lafayette" series),
-   refreshed Jul 26 2026
+   refreshed Aug 9 2026
    Groups: UBMS (16), UB1 (30), UB2 (18), UB3 (15) — 79 enrollments
 ───────────────────────────────────────────────────────────────────────────── */
 window.DASHBOARD = (function () {
@@ -28,7 +28,7 @@ window.DASHBOARD = (function () {
     'Improving Academics with AI'
   ];
 
-  const TODAY = '2026-07-26';
+  const TODAY = '2026-08-09';
   const D0 = '2026-06-25'; // orientation / activation day
   const n  = null;
 
@@ -84,7 +84,8 @@ window.DASHBOARD = (function () {
       ['Jul 7',  '2026-07-07', '2026-07-10'],
       ['Jul 11', '2026-07-11', '2026-07-13'],
       ['Jul 14', '2026-07-14', '2026-07-17'],
-      ['Jul 21', '2026-07-18', '2026-07-26'],
+      ['Jul 18', '2026-07-18', '2026-07-26'],
+      ['Jul 27', '2026-07-27', '2026-08-09'],
     ];
     const inB = (d, a, b) => !!d && d.slice(0, 10) >= a && d.slice(0, 10) <= b;
     const timeline = BUCKETS.map(([label, a, b]) => ({
@@ -139,7 +140,7 @@ window.DASHBOARD = (function () {
     mkStudent('Mariah Davenport',    'davenportmariah5@gmail.com',      '2026-06-25', '2026-07-15', [  0,  0,  0,  0,  3,100], [n,n,n,n,'2026-07-15','2026-07-05'], [n,n,n,n,n,'2026-07-15']),
     mkStudent('Victoria Gallien',    'gallienvictoria7@gmail.com',      '2026-06-25', '2026-06-25', [  0,  0,  0,  0,  0, 33], [n,n,n,n,n,'2026-06-25'], []),
     mkStudent('Peyton Douget',       'pvd6754@gmail.com',               '2026-06-25', '2026-06-25', [  0,  0,  0,  0,  0,  1], [n,n,n,n,n,'2026-06-25'], []),
-    mkStudent('Sadie Pourcio',       'sadiepourcio2@gmail.com',         '2026-06-25', '2026-07-17', [  0,  0,  0,  0,  0, 50], [n,n,n,n,n,'2026-07-12'], []),
+    mkStudent('Sadie Pourcio',       'sadiepourcio2@gmail.com',         '2026-06-25', '2026-08-09', [  0,  0,  0,  0,  0, 51], [n,n,n,n,n,'2026-07-12'], []),
     mkStudent('Julien Deocos',       'deocosjulien1016@gmail.com',      '2026-06-25', '2026-06-25', [  0,  0,  0,  0,  0,  0], [n,n,n,n,'2026-06-25','2026-06-25'], []),
     mkStudent('Sean Richard',        'richardsean449@gmail.com',        '2026-06-25', '2026-07-21', [100,100,100,100,100,100], ['2026-07-02','2026-07-12','2026-06-29','2026-07-16','2026-07-16','2026-06-25'], ['2026-07-12','2026-07-12','2026-06-29','2026-07-16','2026-07-16','2026-06-29']),
     mkStudent('Kennadi C',           'kennadic1209@gmail.com',          '2026-06-25', '2026-07-12', [  0,  0,  0,  0,  0, 50], [n,n,n,n,n,'2026-06-26'], []),
@@ -1054,7 +1055,7 @@ function Sidebar({ active, setActive }) {
       <div style={{ padding: '16px 20px', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
         <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.22)', lineHeight: 1.6 }}>
           Upward Bound Program<br />
-          <span style={{ color: 'rgba(255,255,255,0.4)', fontWeight: 600 }}>Summer 2026 · as of Jul 26</span>
+          <span style={{ color: 'rgba(255,255,255,0.4)', fontWeight: 600 }}>Summer 2026 · as of Aug 9</span>
         </div>
       </div>
     </div>
